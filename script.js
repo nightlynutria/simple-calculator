@@ -22,7 +22,7 @@ function multiply() {
   const num3 = parseFloat(document.getElementById('num3').value);
 
   // Check if inputs are valid numbers
-  if (isNaN(num1) || isNaN(num2)) || isNaN(num3) {
+  if (isNaN(num1) || isNaN(num2) || isNaN(num3) {
     document.getElementById('result').textContent = 'Invalid input';
     return;
   }
