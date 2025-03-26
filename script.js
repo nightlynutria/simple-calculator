@@ -14,12 +14,41 @@ const tableDict = {
     12: { 1: 1.107, 2: 1.345, 3: 3.932 }
 };
 
+
+const tableSubsidio = {
+    "1" :  { 1: 1, 2: 1, 3: 1, 4: 1},
+    "1A":  { 1: -0.1180, 2: "-0.1900 - (0.001 * mes)",  3: 1, 4: 1},
+    "1B":  { 1: -0.1180, 2: "-0.1900 - (0.001 * mes)",  3: 1, 4: 1},
+    "1C":  { 1: -0.1180, 2: "-0.1900 - (0.001 * mes)",  3: 0.125, 4: 1},
+    "1D":  { 1: -0.1180, 2: "-0.1900 - (0.001 * mes)",  3: 0.125, 4: 1},
+    "1E":  { 1: "-0.271 - (0.001 * mes)", 2: "-0.309 - ( 0.001 * mes)",  3: -0.017, 4: 1},
+    "1F":  { 1: "-0.271 - (0.001 * mes)", 2: "-0.309 - ( 0.001 * mes)",  3: "1.093 + (0.004 * mes)", 4: 1}
+}
+
 function multiply() {
   // Get the input values
-  const num1 = parseFloat(document.getElementById('num1').value);
-  const num2 = parseFloat(document.getElementById('num2').value);
-  const value = tableDict[num1][num2];
-  const num3 = parseFloat(document.getElementById('num3').value);
+  const tarifa = parseFloat(document.getElementById('tarifa').value);
+  const consumo = parseFloat(document.getElementById('consumo').value);
+  const mes = parseFloat(document.getElementById('mes').value);
+  const anterior = parseFloat(document.getElementById('anterior').value);
+  const actual = parseFloat(document.getElementById('actual').value);
+  const kwh = parseFloat(actual)-parseFloat(anterior);
+  const verano = true
+
+  if (verano) {
+    // Get subsidio
+    const subsidio = tableSubsidio[tarifa][consumo];
+    if (typeof subsidio === 'string') {
+        const formula = new Function('mes', `return ${subsidio};`);
+        const subsidio = formula(step);
+        kwh = kwh * subsidio;
+    }
+    else{
+        kwh = kwh * subsidio;
+    }
+  }
+
+  const value = tableDict[mes][tarifa];
 
   // Check if inputs are valid numbers
   if (isNaN(num1) || isNaN(num2) || isNaN(num3)) {
@@ -28,7 +57,7 @@ function multiply() {
   }
 
   // Multiply the numbers
-  const result = value * num3;
+  const result = value * kwh;
 
   // Display the result
   document.getElementById('result').textContent = result;
