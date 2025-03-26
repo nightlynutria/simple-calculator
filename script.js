@@ -50,11 +50,6 @@ function multiply() {
 
   const value = tableDict[mes][tarifa];
 
-  // Check if inputs are valid numbers
-  if (isNaN(num1) || isNaN(num2) || isNaN(num3)) {
-    document.getElementById('result').textContent = 'Invalid input';
-    return;
-  }
 
   // Multiply the numbers
   const result = value * kwh;
