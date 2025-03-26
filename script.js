@@ -32,7 +32,7 @@ function multiply() {
   const mes = parseFloat(document.getElementById('mes').value);
   const anterior = parseFloat(document.getElementById('anterior').value);
   const actual = parseFloat(document.getElementById('actual').value);
-  const kwh = parseFloat(actual)-parseFloat(anterior);
+  let kwh = parseFloat(actual)-parseFloat(anterior);
   const verano = true
 
   if (verano) {
