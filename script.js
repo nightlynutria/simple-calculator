@@ -36,15 +36,20 @@ function multiply() {
   const verano = true
 
   if (verano) {
+    console.log("Verano = true");
     // Get subsidio
     const subsidio = tableSubsidio[tarifa][consumo];
+    console.log("subsidio = ", subsidio);
     if (typeof subsidio === 'string') {
+        console.log("subsidio = string");
         const formula = new Function('mes', `return ${subsidio};`);
         const subsidio = formula(step);
         kwh = kwh * subsidio;
+        console.log("kwh",  kwh);
     }
     else{
         kwh = kwh * subsidio;
+        console.log("kwh",  kwh);
     }
   }
 
