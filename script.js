@@ -27,7 +27,7 @@ const tableSubsidio = {
 
 function multiply() {
   // Get the input values
-  const tarifa = parseFloat(document.getElementById('tarifa').value);
+  const tarifa = document.getElementById('tarifa').value;
   const consumo = parseFloat(document.getElementById('consumo').value);
   const mes = parseFloat(document.getElementById('mes').value);
   const anterior = parseFloat(document.getElementById('anterior').value);
@@ -43,21 +43,23 @@ function multiply() {
     if (typeof subsidio === 'string') {
         console.log("subsidio = string");
         const formula = new Function('mes', `return ${subsidio};`);
-        const subsidio = formula(step);
-        kwh = kwh * subsidio;
+        const result = formula(mes);
+        kwh = parseFloat(kwh) + parseFloat(result);
         console.log("kwh",  kwh);
     }
     else{
-        kwh = kwh * subsidio;
-        console.log("kwh",  kwh);
+        kwh = kwh + subsidio;
+        console.log("kwh ",  kwh);
     }
   }
 
-  const value = tableDict[mes][tarifa];
+  const value = tableDict[mes][consumo];
+  console.log("value ",  value);
 
 
   // Multiply the numbers
-  const result = value * kwh;
+  const result = parseFloat(value) * parseFloat(kwh);
+  console.log("result ",  result);
 
   // Display the result
   document.getElementById('result').textContent = result;
